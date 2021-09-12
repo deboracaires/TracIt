@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export default function Topo(){
+export default function Topo({imagem}){
     return(
         <Header>
             <p>TrackIt</p>
-            <img src="https://http.cat/411.jpg" alt="" />
+            <img src={imagem} alt="" />
         </Header>
     );
 }

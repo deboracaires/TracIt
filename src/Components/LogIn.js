@@ -2,12 +2,13 @@ import Setas from "../assets/setas.PNG";
 import styled from "styled-components";
 import { Link , useHistory } from "react-router-dom";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-export default function LogIn({setToken}){
+export default function LogIn({setUser}){
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    
     
     const body = {email, password};
 
@@ -18,7 +19,7 @@ export default function LogIn({setToken}){
 
         requisicao
             .then(res => 
-                {setToken(res.data.token)
+                {setUser(res.data)
                 history.push('/hoje')})
             .catch(err=> console.log(err));
     }

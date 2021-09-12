@@ -3,30 +3,33 @@ import LogIn from "./LogIn";
 import SignUp from './SignUp';
 import { useState } from 'react';
 import InicialPage from './InicialPage';
+import UserContext from '../contexts/UserContext';
 
 export default function App(){
     
-    const [token, setToken] = useState("");
-    console.log(token);
+    const [user, setUser] = useState({});
+
     return(
         <div>
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/" exact>
-                        <LogIn 
-                            setToken={setToken}
-                        />
-                    </Route>
-                    <Route path="/cadastro" exact>
-                        <SignUp />
-                    </Route>
-                    <Route path="/hoje">
-                        <InicialPage/>
-                    </Route>
-                    
+            <UserContext.Provider value={user}>
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/" exact>
+                            <LogIn 
+                                setUser={setUser}
+                            />
+                        </Route>
+                        <Route path="/cadastro" exact>
+                            <SignUp />
+                        </Route>
+                        <Route path="/hoje">
+                            <InicialPage/>
+                        </Route>
+                        
 
-                </Switch>
-            </BrowserRouter>
+                    </Switch>
+                </BrowserRouter>
+            </UserContext.Provider>
         </div>
     );
 }
