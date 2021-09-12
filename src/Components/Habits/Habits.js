@@ -15,15 +15,18 @@ export default function Habits(){
     
     const user = useContext(UserContext);
     
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${user.token}`
-        }
-    }
     
-    useEffect(()=> renderHabits(), []);
+    useEffect(()=> {
+        renderHabits();
+    }, []);
 
     function renderHabits(){
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        }
+        
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
 
         requisicao
@@ -57,7 +60,7 @@ export default function Habits(){
                 </TextNoHabits>)
                 :
                 (
-                    habits.map((habit, index)=> <Habit key={index} id={habit.id} name={habit.name} days={habit.days}/>)
+                    habits.map((habit, index)=> <Habit key={index} id={habit.id} name={habit.name} days={habit.days} renderHabits={renderHabits}/>)
                 )
             }
             </Conteudo>            

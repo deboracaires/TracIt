@@ -1,7 +1,12 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import UserContext from "../../contexts/UserContext";
+import axios from "axios";
 
-export default function Habit({name, days}){
+export default function Habit({name, days, id, renderHabits}){
     
+    const user = useContext(UserContext);
+
     let class0 = "";
     let class1 = "";
     let class2 = "";
@@ -32,9 +37,25 @@ export default function Habit({name, days}){
         class6 = "selected";
     }
 
+    function removeHabit(){
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${user.token}`
+            }
+        }
+        const requisicao = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config);
+
+        requisicao
+            .then(res => {renderHabits()})
+            .catch(err => console.log(err));
+    }
+
     
     return(
         <HabitContainer>
+            
+            <ion-icon onClick={removeHabit} name="trash-outline"></ion-icon>
+    
             <p>{name}</p>
             
             <ContainerDays>
@@ -46,6 +67,7 @@ export default function Habit({name, days}){
                 <button className={class5}>S</button>
                 <button className={class6}>S</button>
             </ContainerDays>
+            
         </HabitContainer>
     );
 }
@@ -58,6 +80,8 @@ const HabitContainer = styled.div `
     border: 1px solid #d5d5d5;
     width: 340px;
     height: 91px;
+    position: relative;
+    
 
     p {
         color: #666666;
@@ -66,6 +90,16 @@ const HabitContainer = styled.div `
         margin-top: 13px;
         margin-left: 15px;
     }
+
+    ion-icon {
+        position: absolute;
+        right: 10px;
+        top: 11px;
+        width: 20px;
+        height: 20px;
+        color: #666666;
+    }
+    
     
 
 `;

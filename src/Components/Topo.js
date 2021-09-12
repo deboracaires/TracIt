@@ -20,6 +20,7 @@ const Header = styled.div `
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 10000;
 
     p {
         font-family: 'Playball', cursive;
