@@ -38,6 +38,7 @@ const Footer = styled.div `
     width: 100vw;
     display: flex;
     justify-content: space-around;
+    background-color: #fff;
 
     button {
         border: none;
