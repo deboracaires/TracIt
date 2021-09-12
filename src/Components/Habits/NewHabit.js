@@ -4,7 +4,7 @@ import DaysHabits from "./DaysHabits";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
 
-export default function NewHabit(){
+export default function NewHabit({cancelarAdd, renderHabits}){
     
     const [name, setName] = useState("");
     const [days, setDays] = useState([]);
@@ -38,12 +38,17 @@ export default function NewHabit(){
             requisicao
                 .then(res => console.log(res.data.id));
             
+            cancelarAdd();
+            renderHabits();
 
         }else{
             alert("Dados incompletos");
         }
     }
     
+    function cancelar(){
+        cancelarAdd();
+    }
     return(
         <ContainerNewHabit>
             <input 
@@ -58,7 +63,7 @@ export default function NewHabit(){
             
 
             <CancelOrSave>
-                <button className="cancelar">Cancelar</button>
+                <button className="cancelar" onClick={cancelar}>Cancelar</button>
                 <button className="salvar" onClick={saveHabit}>Salvar</button>
             </CancelOrSave>
             

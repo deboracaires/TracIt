@@ -21,20 +21,21 @@ export default function Habits(){
         }
     }
     
-    useEffect(()=> {
+    useEffect(()=> renderHabits(), []);
+
+    function renderHabits(){
         const requisicao = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
 
         requisicao
             .then(res => setHabits(res.data))
             .catch(err => console.log(err));
-    
-
-    }, []);
-
-    
+    }
     
     function adicionarHabito(){
-        setAddHabit(<NewHabit/>);
+        setAddHabit(<NewHabit renderHabits={renderHabits} cancelarAdd={cancelarAdd}/>);
+    }
+    function cancelarAdd(){
+        setAddHabit([]);
     }
     return(
         <div>
