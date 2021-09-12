@@ -1,6 +1,6 @@
 import Setas from "../assets/setas.PNG";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link , useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -10,11 +10,16 @@ export default function LogIn({setToken}){
     const [password, setPassword] = useState("");
     
     const body = {email, password};
+
+    const history = useHistory();
+
     function entrar(){
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body);
 
         requisicao
-            .then(res => console.log(setToken(res.data.token)))
+            .then(res => 
+                {setToken(res.data.token)
+                history.push('/hoje')})
             .catch(err=> console.log(err));
     }
     return (
@@ -34,6 +39,7 @@ export default function LogIn({setToken}){
             </input>
 
             <button onClick={entrar}>Entrar</button>
+
             <Link to="/cadastro">
                 <h1>Não tem uma conta? Cadastre-se!</h1>
             </Link>

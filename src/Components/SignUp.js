@@ -1,6 +1,6 @@
 import Setas from "../assets/setas.PNG";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link , useHistory} from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 
@@ -12,11 +12,14 @@ export default function SignUp(){
 
     const body = {email, name, image, password};
     
+    const history = useHistory();
+
     function cadastro(){
+        
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
 
         
-        requisicao.then(res=> {console.log("deu bao")})
+        requisicao.then(res=> history.push('/'))
             .catch(err=> console.log(err));
 
     }

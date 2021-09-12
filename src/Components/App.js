@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import LogIn from "./LogIn";
 import SignUp from './SignUp';
 import { useState } from 'react';
+import InicialPage from './InicialPage';
 
 export default function App(){
     
@@ -19,6 +20,11 @@ export default function App(){
                     <Route path="/cadastro" exact>
                         <SignUp />
                     </Route>
+                    <Route path="/hoje">
+                        <InicialPage/>
+                    </Route>
+                    
+
                 </Switch>
             </BrowserRouter>
         </div>
