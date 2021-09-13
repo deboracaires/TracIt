@@ -5,10 +5,16 @@ import { useState } from 'react';
 import Habits from './Habits/Habits';
 import UserContext from '../contexts/UserContext';
 import Today from './Today/Today';
+import Historic from './Historic/Historic';
 
 export default function App(){
     
     const [user, setUser] = useState({});
+    const [porcentagem, setPorcentagem] = useState(0);
+
+    function salvarPorcentagem(p){
+        setPorcentagem(p);
+    }
 
     return(
         <div>
@@ -24,10 +30,16 @@ export default function App(){
                             <SignUp />
                         </Route>
                         <Route path="/hoje" exact>
-                            <Today />
+                            <Today
+                            setPorcentagem = {salvarPorcentagem} />
                         </Route>
                         <Route path="/habitos">
-                            <Habits/>
+                            <Habits
+                            porcentagem={porcentagem}/>
+                        </Route>
+                        <Route path="/historico">
+                            <Historic 
+                            porcentagem={porcentagem}/>
                         </Route>
                         
 

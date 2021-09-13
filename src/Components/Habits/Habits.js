@@ -8,7 +8,7 @@ import styled from "styled-components";
 import axios from "axios";
 
 
-export default function Habits(){
+export default function Habits({porcentagem}){
     
     const [habits, setHabits] = useState([]);
     const [addHabit, setAddHabit] = useState([]);
@@ -41,10 +41,6 @@ export default function Habits(){
         setAddHabit([]);
     }
 
-    let checkedHabits = 0;
-    habits.map(habit => {habit.done ? checkedHabits = checkedHabits + 1 : checkedHabits = checkedHabits})
-
-    const porcentagem = Math.round((checkedHabits/habits.length) *100);
 
 
     return(

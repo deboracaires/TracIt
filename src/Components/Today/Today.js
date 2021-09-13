@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import TodayHabits from "./TodayHabits";
 import axios from "axios";
 
-export default function Today(){
+export default function Today({setPorcentagem}){
     
     const [habits, setHabits] = useState([]);
     
@@ -71,7 +71,8 @@ export default function Today(){
     let checkedHabits = 0;
     habits.map(habit => {habit.done ? checkedHabits = checkedHabits + 1 : checkedHabits = checkedHabits})
 
-    const porcentagem = Math.round((checkedHabits/habits.length) *100);
+    const p = Math.round((checkedHabits/habits.length) *100);
+    
     
     
     return(
@@ -87,7 +88,16 @@ export default function Today(){
                     :
                     (
                         
-                        <h2>{porcentagem}% dos hábitos concluídos</h2>
+                        <h2>{p}% dos hábitos concluídos</h2>
+                    )
+                }
+                {habits.length === 0 ? 
+                    (
+                        setPorcentagem(p)
+                    )
+                    :
+                    (
+                        setPorcentagem(p)
                     )
                 }
                     
@@ -113,7 +123,7 @@ export default function Today(){
             </ConteudoToday>
 
                 
-            <Menu porcentagem={porcentagem}/>
+            <Menu porcentagem={p}/>
         </ContainerToday>
     );
 }
