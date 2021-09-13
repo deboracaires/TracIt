@@ -13,14 +13,13 @@ export default function TodayHabits({id, name, done, highestSequence, currentSeq
             </Esquerda>
 
             <Direita>
-                <label>
-                    <input type="checkbox"
-                        checked={done}
-                        onClick={()=> checkHabit(id, done)}
+                <input type="checkbox"
+                    checked={done}
+                    onClick={()=> checkHabit(id, done)}
                         
-                        readOnly                       
-                    />
-                 </label>
+                    readOnly                       
+                />
+            
             </Direita>
         </Container>
     );
@@ -28,7 +27,7 @@ export default function TodayHabits({id, name, done, highestSequence, currentSeq
 
 const Container = styled.div `
     box-sizing: border-box;
-    margin-left: 15px;
+   
     margin-top: 38px;
     border-radius: 5px;
     border: 1px solid #d5d5d5;
@@ -37,6 +36,7 @@ const Container = styled.div `
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 `;
 
 const Esquerda = styled.div `
@@ -61,7 +61,9 @@ const Esquerda = styled.div `
 
 const Direita = styled.div `
     margin-right: 15px;
-    
+    position: absolute;
+    right: 0;
+    top: 8px;
     
     input {
         width: 69px;

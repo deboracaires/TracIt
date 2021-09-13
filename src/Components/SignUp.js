@@ -13,14 +13,17 @@ export default function SignUp(){
     const [image, setImage] = useState("");
     const [textSignUp, setTextSignUp] = useState("Cadastrar");
 
-    const body = {email, name, image, password};
+    
     
     const history = useHistory();
 
-    function cadastro(){
+    function cadastro(e){
         
         setTextSignUp(<Loader type="ThreeDots" color="#FFFFFF" height={45} width={45} />);
         
+        e.preventDefault();
+
+        const body = {email: {email}, name: {name}, image: {image}, password: {password}};
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
 
         
@@ -34,32 +37,34 @@ export default function SignUp(){
             <img src={Setas} alt="" />
             <p>TrackIt</p>
 
-            <input 
-                type="email" 
-                placeholder="email"
-                onChange={e=> setEmail(e.target.value)}
-                required>    
-            </input>
-            <input 
-                type="password" 
-                placeholder="senha"
-                onChange={e=> setPassword(e.target.value) }
-                required>
-            </input>
-            <input 
-                type="text" 
-                placeholder="nome"
-                onChange={e=> setName(e.target.value) }
-                required>
-            </input>
-            <input 
-                type="url" 
-                placeholder="senha"
-                onChange={e=> setImage(e.target.value) }
-                required>
-            </input>
+            <form onSubmit={cadastro}>
+                <input 
+                    type="email" 
+                    placeholder="email"
+                    onChange={e=> setEmail(e.target.value)}
+                    required>    
+                </input>
+                <input 
+                    type="password" 
+                    placeholder="senha"
+                    onChange={e=> setPassword(e.target.value) }
+                    required>
+                </input>
+                <input 
+                    type="text" 
+                    placeholder="nome"
+                    onChange={e=> setName(e.target.value) }
+                    required>
+                </input>
+                <input 
+                    type="url" 
+                    placeholder="senha"
+                    onChange={e=> setImage(e.target.value) }
+                    required>
+                </input>
 
-            <button onClick={cadastro}>{textSignUp}</button>
+                <button type="submit">{textSignUp}</button>
+            </form>
             <Link to="/">
                 <h1>Já tem uma conta? Faça login!</h1>
             </Link>
@@ -101,6 +106,11 @@ const Container = styled.div`
     input::placeholder{
         color: #dbdbdb;
         font-size: 19.98px;
+    }
+
+    form{
+        display:flex;
+        flex-direction: column;
     }
 
     button{

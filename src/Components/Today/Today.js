@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import TodayHabits from "./TodayHabits";
 import axios from "axios";
 
+
 export default function Today({setPorcentagem}){
     
     const [habits, setHabits] = useState([]);
@@ -41,6 +42,8 @@ export default function Today({setPorcentagem}){
         }
     }
 
+   
+
     function renderHabits(){
         
         const requisicao = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
@@ -48,8 +51,15 @@ export default function Today({setPorcentagem}){
         requisicao
             .then(res => setHabits(res.data))
             .catch(err => console.log(err));
+    
+        
     }
 
+    let checkedHabits = 0;
+    habits.map(habit => {habit.done ? checkedHabits = checkedHabits + 1 : checkedHabits = checkedHabits + 0})
+
+
+    const p = Math.round((checkedHabits/habits.length) *100);
 
     function checkHabit(id, done){
         
@@ -66,22 +76,21 @@ export default function Today({setPorcentagem}){
         requisicao
             .then(res => renderHabits())
             .catch(err => console.log(err));
+
+        setPorcentagem(p);
     }
 
-    let checkedHabits = 0;
-    habits.map(habit => {habit.done ? checkedHabits = checkedHabits + 1 : checkedHabits = checkedHabits})
-
-    const p = Math.round((checkedHabits/habits.length) *100);
+    
     
     
     
     return(
-        <ContainerToday>
+        <div>
             <Topo imagem={user.image}/>
             
             <ConteudoToday>
                 <p>{dia}, {dayjs().format('DD/MM')}</p>
-                {habits.length === 0 ? 
+                { isNaN(p) ? 
                     (
                         <h1>Nenhum hábito concluído ainda</h1>
                     )
@@ -90,17 +99,7 @@ export default function Today({setPorcentagem}){
                         
                         <h2>{p}% dos hábitos concluídos</h2>
                     )
-                }
-                {habits.length === 0 ? 
-                    (
-                        setPorcentagem(p)
-                    )
-                    :
-                    (
-                        setPorcentagem(p)
-                    )
-                }
-                    
+                }                   
 
                 <Habitos>
                     {habits.length === 0 ? 
@@ -122,19 +121,21 @@ export default function Today({setPorcentagem}){
                 </Habitos>
             </ConteudoToday>
 
-                
+            
             <Menu porcentagem={p}/>
-        </ContainerToday>
+           
+            
+        </div>
     );
 }
 
-const ContainerToday = styled.div `
 
-`;
 
 const ConteudoToday = styled.div `
-    margin: 98px 0 0 17px;
+    margin: 98px 0 105px 17px;
     font-family: 'Lexend Deca', sans-serif;
+    overflow-y: scroll;
+    overflow-x: hidden;
     p {
         font-size: 23px;
         color: #126BA5;
@@ -153,5 +154,13 @@ const ConteudoToday = styled.div `
 `;
 
 const Habitos = styled.div `
-    
+    margin-top: 28px;
+
+
+    p {
+        font-size: 18px;
+        font-family: 'Lexend Deca', sans-serif;
+        color: #666666;
+        width: 338px;
+    }
 `;

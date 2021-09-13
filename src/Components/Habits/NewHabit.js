@@ -41,7 +41,7 @@ export default function NewHabit({cancelarAdd, renderHabits}){
             const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config);
 
             requisicao
-                .then(res => console.log(res.data.id));
+                .then(res => (""));
             
             cancelarAdd();
             renderHabits();

@@ -1,4 +1,4 @@
-import Setas from "../assets/setas.PNG";
+import Logo from "../assets/setas.PNG";
 import styled from "styled-components";
 import { Link , useHistory } from "react-router-dom";
 import axios from "axios";
@@ -12,12 +12,16 @@ export default function LogIn({setUser}){
     const [password, setPassword] = useState("");
     const [textLogin, setTextLogin] = useState("Entrar");
     
-    const body = {email, password};
+    
 
     const history = useHistory();
 
-    function entrar(){
+    function entrar(e){
         setTextLogin(<Loader type="ThreeDots" color="#FFFFFF" height={45} width={45} />);
+        
+        e.preventDefault();
+
+        const body = {email: {email}, password: {password}};
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body);
 
         requisicao
@@ -30,21 +34,23 @@ export default function LogIn({setUser}){
     }
     return (
         <Container>
-            <img src={Setas} alt="" />
+            <img src={Logo} alt="" />
             <p>TrackIt</p>
 
-            <input 
-                type="email" 
-                placeholder="email"
-                onChange={e=> setEmail(e.target.value)}>   
-            </input>
-            <input 
-                type="password" 
-                placeholder="senha"
-                onChange={e=> setPassword(e.target.value)}>               
-            </input>
-            
-            <button onClick={entrar}>{textLogin}</button>
+            <form onSubmit={entrar}>
+                <input 
+                    type="email" 
+                    placeholder="email"
+                    onChange={e=> setEmail(e.target.value)}>   
+                </input>
+                <input 
+                    type="password" 
+                    placeholder="senha"
+                    onChange={e=> setPassword(e.target.value)}>               
+                </input>
+                
+                <button type="submit">{textLogin}</button>
+            </form>
 
             <Link to="/cadastro">
                 <h1>Não tem uma conta? Cadastre-se!</h1>
@@ -87,6 +93,10 @@ const Container = styled.div`
     input::placeholder{
         color: #dbdbdb;
         font-size: 19.98px;
+    }
+    form{
+        display:flex;
+        flex-direction: column;
     }
 
     button{

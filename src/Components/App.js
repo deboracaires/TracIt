@@ -7,15 +7,16 @@ import UserContext from '../contexts/UserContext';
 import Today from './Today/Today';
 import Historic from './Historic/Historic';
 
+
 export default function App(){
     
     const [user, setUser] = useState({});
     const [porcentagem, setPorcentagem] = useState(0);
-
+    
     function salvarPorcentagem(p){
         setPorcentagem(p);
     }
-
+   
     return(
         <div>
             <UserContext.Provider value={user}>
@@ -30,16 +31,13 @@ export default function App(){
                             <SignUp />
                         </Route>
                         <Route path="/hoje" exact>
-                            <Today
-                            setPorcentagem = {salvarPorcentagem} />
+                            <Today setPorcentagem={salvarPorcentagem}/>
                         </Route>
                         <Route path="/habitos">
-                            <Habits
-                            porcentagem={porcentagem}/>
+                            <Habits porcentagem={porcentagem}/>
                         </Route>
                         <Route path="/historico">
-                            <Historic 
-                            porcentagem={porcentagem}/>
+                            <Historic porcentagem={porcentagem}/>
                         </Route>
                         
 

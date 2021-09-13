@@ -3,11 +3,12 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css"
 import { useHistory } from "react-router";
 
+
 export default function Menu({porcentagem}){
     
     
     const history = useHistory();
-
+    
     function redirectHabits(){
         history.push('/habitos');
     }
@@ -53,6 +54,7 @@ const Footer = styled.div `
     justify-content: space-around;
     background-color: #fff;
     z-index: 10000;
+    margin: 0 8px;
 
     button {
         border: none;
