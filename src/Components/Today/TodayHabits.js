@@ -17,6 +17,7 @@ export default function TodayHabits({id, name, done, highestSequence, currentSeq
                     <input type="checkbox"
                         checked={done}
                         onClick={()=> checkHabit(id, done)}
+                        
                         readOnly                       
                     />
                  </label>
@@ -60,13 +61,14 @@ const Esquerda = styled.div `
 
 const Direita = styled.div `
     margin-right: 15px;
-
+    
+    
     input {
         width: 69px;
-        height: 69px;
+        height: 69px;       
         
     }
-    input::checked {
+    input:checked:after{
         color: red;
         
     }

@@ -3,12 +3,15 @@ import styled from "styled-components";
 import { Link , useHistory} from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 export default function SignUp(){
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [image, setImage] = useState("");
+    const [textSignUp, setTextSignUp] = useState("Cadastrar");
 
     const body = {email, name, image, password};
     
@@ -16,11 +19,14 @@ export default function SignUp(){
 
     function cadastro(){
         
+        setTextSignUp(<Loader type="ThreeDots" color="#FFFFFF" height={45} width={45} />);
+        
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
 
         
         requisicao.then(res=> history.push('/'))
-            .catch(err=> console.log(err));
+            .catch(err=> {setTextSignUp("Cadastrar")
+                            alert("Algo deu errado, tente novamente")});
 
     }
     return (
@@ -53,7 +59,7 @@ export default function SignUp(){
                 required>
             </input>
 
-            <button onClick={cadastro}>Cadastrar</button>
+            <button onClick={cadastro}>{textSignUp}</button>
             <Link to="/">
                 <h1>Já tem uma conta? Faça login!</h1>
             </Link>

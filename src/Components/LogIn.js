@@ -3,25 +3,30 @@ import styled from "styled-components";
 import { Link , useHistory } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 export default function LogIn({setUser}){
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+    const [textLogin, setTextLogin] = useState("Entrar");
     
     const body = {email, password};
 
     const history = useHistory();
 
     function entrar(){
+        setTextLogin(<Loader type="ThreeDots" color="#FFFFFF" height={45} width={45} />);
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body);
 
         requisicao
             .then(res => 
-                {setUser(res.data)
-                history.push('/hoje')})
-            .catch(err=> console.log(err));
+                    {   setUser(res.data)
+                        history.push('/hoje')})
+            .catch(err=> 
+                    {   setTextLogin("Entrar")
+                        alert("Algo deu errado, por favor, tente novamente")});
     }
     return (
         <Container>
@@ -38,8 +43,8 @@ export default function LogIn({setUser}){
                 placeholder="senha"
                 onChange={e=> setPassword(e.target.value)}>               
             </input>
-
-            <button onClick={entrar}>Entrar</button>
+            
+            <button onClick={entrar}>{textLogin}</button>
 
             <Link to="/cadastro">
                 <h1>Não tem uma conta? Cadastre-se!</h1>

@@ -3,11 +3,14 @@ import styled from "styled-components";
 import DaysHabits from "./DaysHabits";
 import axios from "axios";
 import UserContext from "../../contexts/UserContext";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 export default function NewHabit({cancelarAdd, renderHabits}){
     
     const [name, setName] = useState("");
     const [days, setDays] = useState([]);
+    const [textSave, setTextSave] = useState("Salvar");
     
     
     const listDays = ["D", "S", "T", "Q", "Q", "S", "S"];
@@ -31,6 +34,8 @@ export default function NewHabit({cancelarAdd, renderHabits}){
     }
 
     function saveHabit(){
+        setTextSave(<Loader type="ThreeDots" color="#FFFFFF" height={45} width={45} />);
+        
         if(name !== "" && days.length !== 0){
             const body = {name, days};
             const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config);
@@ -44,6 +49,7 @@ export default function NewHabit({cancelarAdd, renderHabits}){
 
         }else{
             alert("Dados incompletos");
+            setTextSave("Salvar");
         }
     }
     
@@ -65,7 +71,7 @@ export default function NewHabit({cancelarAdd, renderHabits}){
 
             <CancelOrSave>
                 <button className="cancelar" onClick={cancelar}>Cancelar</button>
-                <button className="salvar" onClick={saveHabit}>Salvar</button>
+                <button className="salvar" onClick={saveHabit}>{textSave}</button>
             </CancelOrSave>
             
         </ContainerNewHabit>
