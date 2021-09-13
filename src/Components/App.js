@@ -6,6 +6,7 @@ import Habits from './Habits/Habits';
 import UserContext from '../contexts/UserContext';
 import Today from './Today/Today';
 import Historic from './Historic/Historic';
+import "../css/reset.css";
 
 
 export default function App(){
