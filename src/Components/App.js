@@ -4,6 +4,7 @@ import SignUp from './SignUp';
 import { useState } from 'react';
 import Habits from './Habits/Habits';
 import UserContext from '../contexts/UserContext';
+import Today from './Today/Today';
 
 export default function App(){
     
@@ -21,6 +22,9 @@ export default function App(){
                         </Route>
                         <Route path="/cadastro" exact>
                             <SignUp />
+                        </Route>
+                        <Route path="/hoje" exact>
+                            <Today />
                         </Route>
                         <Route path="/habitos">
                             <Habits/>

@@ -20,7 +20,7 @@ export default function LogIn({setUser}){
         requisicao
             .then(res => 
                 {setUser(res.data)
-                history.push('/habitos')})
+                history.push('/hoje')})
             .catch(err=> console.log(err));
     }
     return (

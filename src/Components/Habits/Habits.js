@@ -40,6 +40,13 @@ export default function Habits(){
     function cancelarAdd(){
         setAddHabit([]);
     }
+
+    let checkedHabits = 0;
+    habits.map(habit => {habit.done ? checkedHabits = checkedHabits + 1 : checkedHabits = checkedHabits})
+
+    const porcentagem = Math.round((checkedHabits/habits.length) *100);
+
+
     return(
         <div>
             <Topo imagem = {user.image}/>
@@ -65,7 +72,7 @@ export default function Habits(){
             }
             </Conteudo>            
             
-            <Menu />
+            <Menu porcentagem={porcentagem}/>
         </div>
     );
 }

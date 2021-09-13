@@ -1,18 +1,31 @@
 import styled from "styled-components";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css"
+import { useHistory } from "react-router";
 
-export default function Menu(){
+export default function Menu({porcentagem}){
     
-    const porcentagem = 0.50;
     
+    const history = useHistory();
+
+    function redirectHabits(){
+        history.push('/habitos');
+    }
+
+    function redirectToday(){
+        history.push('/hoje');
+    }
+    function redirectHistory(){
+        history.push('/historico');
+    }
     return(
         <Footer>
-            <button>Hábitos</button>
-            <div style={{width: 91, height: 91}}>
+            
+            <button onClick={redirectHabits}>Hábitos</button>
+            <div style={{width: 91, height: 91}} onClick={redirectToday}>
                 <CircularProgressbar 
                     value={porcentagem} 
-                    maxValue={1} 
+                    maxValue={100} 
                     text="Hoje"
                     background
                     backgroundPadding={7}
@@ -26,7 +39,7 @@ export default function Menu(){
                     }
                 />
             </div>
-            <button>Histórico</button>
+            <button onClick={redirectHistory}>Histórico</button>
         </Footer>
     );
 }

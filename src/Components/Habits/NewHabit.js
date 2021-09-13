@@ -40,6 +40,7 @@ export default function NewHabit({cancelarAdd, renderHabits}){
             
             cancelarAdd();
             renderHabits();
+            renderHabits();
 
         }else{
             alert("Dados incompletos");
